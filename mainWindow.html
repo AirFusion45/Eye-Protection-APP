@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <Title>Eye Protection APP</Title>
+</head>
+
+<body>
+    <h1 align = "center">Time/Settings</h1>
+    <ul align = "center", style="list-style-type: none;" \n></ul>
+</body>
+<script>
+const electron = require('electron');
+const {ipcRenderer} = electron;
+const ul = document.querySelector('ul')
+
+ipcRenderer.on('item:addWork', function(e,item){
+//  const li = document.createElement('li');
+//  console.log(li)
+//  const itemText = document.createTextNode(item);
+//  console.log(itemText)
+//  li.appendChild(itemText);
+//  ul.appendChild(li);
+ul.className = 'collection';
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      const itemText = document.createTextNode(item);
+      li.appendChild(itemText);
+      ul.appendChild(li);
+});
+
+</script>   
+</html>

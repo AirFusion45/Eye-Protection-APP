@@ -1,0 +1,14 @@
+{
+  "name": "eyeprotectionapp",
+  "version": "1.0.0",
+  "description": "Eye Protection APP",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Jim Fang",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}
