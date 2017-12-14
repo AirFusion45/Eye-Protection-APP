@@ -1,40 +1,43 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <Title>Set Work Time</Title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 </head>
 
 <body>
-    <form>
-        <div>
-            <label>Enter Time</label>
-            <input type="number" id="time" min="5" autofocus>
-        </div>
-        <button type = "Submit">Set Time</button>
-    </form>
+    <div class="container">
+        <form>
+            <div>
+                <label>Enter Time</label>
+                <input type="number" id="time" min="5" autofocus>
+            </div>
+            <button class = "btn waves-effect waves-light" type="Submit">Set Time</button>
+        </form>
+    </div>
     <script>
-    // const electron = require('electron');
-    // const {ipcRenderer} = electron;
-    // const form = document.querySelector('form');
-    //form.addEventListener('submit', submitForm());
-    
-    // function submitWorkTime(event) {
-    //     event.preventDefault()
-    //     const time = document.querySelector('#item').value;
-    //     ipcRenderer.send('item:addWorkTime', time)
-    // }
- const electron = require('electron');
-    const {ipcRenderer} = electron;
-    document.querySelector('form').addEventListener('submit', submitForm);
-    function submitForm(e){
-     e.preventDefault();
-     console.log(1234)
-      const item = document.querySelector('#time').value;
-     // console.log(ipcRenderer);
-      ipcRenderer.send('item:addWork', item);
-    }
+        // const electron = require('electron');
+        // const {ipcRenderer} = electron;
+        // const form = document.querySelector('form');
+        //form.addEventListener('submit', submitForm());
+
+        // function submitWorkTime(event) {
+        //     event.preventDefault()
+        //     const time = document.querySelector('#item').value;
+        //     ipcRenderer.send('item:addWorkTime', time)
+        // }
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+        document.querySelector('form').addEventListener('submit', submitForm);
+        function submitForm(e) {
+            e.preventDefault();
+            console.log(1234)
+            const item = document.querySelector('#time').value;
+            // console.log(ipcRenderer);
+            ipcRenderer.send('item:addWork', item);
+        }
     </script>
 </body>
 
-</html>
+</html> -->

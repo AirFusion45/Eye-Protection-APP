@@ -1,33 +1,281 @@
 <!DOCTYPE html>
+<!-- Add: Parental Control -->
 <html lang="en">
 
 <head>
     <Title>Eye Protection APP</Title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 </head>
 
 <body>
-    <h1 align = "center">Time/Settings</h1>
-    <ul align = "center", style="list-style-type: none;" \n></ul>
+    <!-- <h1 align="center">Time/Settings</h1> -->
+
+    <!-- <form> -->
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">Time/Settings</a>
+        </div>
+    </nav>
+    <div class="container">
+        <input type="number" id="minute" placeholder="Work Time (minutes)">
+        <input type="number" id="break" placeholder="Break Time (minutes)">
+        <!-- <ul align="center" , style="list-style-type: none;" \n></ul> -->
+        <ul align="center"></ul>
+        <audio src="alarm.mp3" id="workAlarm" preload="auto" loop></audio>
+        <div style="text-align: center;">
+            <button class="btn waves-effect waves-light" id="submitBtn">Start Work Count Down</button>
+            <button class="btn waves-effect waves-light" id="submitbtnn">Start Break Count Down</button>
+        </div>
+        <br>
+        <br>
+        <div style="text-align:center;">Time Left:
+            <span id="timer"></span>
+        </div>
+    </div>
+    <!-- <div>Break Time Left: 
+        <span id="timer1"></span>
+    </div> -->
+    <!-- </form> -->
+    </div>
 </body>
 <script>
-const electron = require('electron');
-const {ipcRenderer} = electron;
-const ul = document.querySelector('ul')
+    const electron = require('electron');
+    const { ipcRenderer } = electron;
+    const ul = document.querySelector('ul')
+    let okornot = false;
 
-ipcRenderer.on('item:addWork', function(e,item){
-//  const li = document.createElement('li');
-//  console.log(li)
-//  const itemText = document.createTextNode(item);
-//  console.log(itemText)
-//  li.appendChild(itemText);
-//  ul.appendChild(li);
-ul.className = 'collection';
-      const li = document.createElement('li');
-      li.className = 'collection-item';
-      const itemText = document.createTextNode(item);
-      li.appendChild(itemText);
-      ul.appendChild(li);
-});
 
-</script>   
+
+    var input = document.getElementById('minute');
+    var submitBtn = document.getElementById('submitBtn');
+    var output = document.getElementById('timer');
+    output.innerHTML =
+        00 + ":" + 00;
+
+    submitBtn.addEventListener('click', () => {
+        var inputValue = input.value;
+        if (!inputValue) { //here
+            alert('Please enter a value')
+        } else {
+            document.getElementById('timer').innerHTML =
+                inputValue + ":" + 00;
+            startTimer();
+
+            function startTimer() {
+                input.value = '';
+                var presentTime = output.innerHTML;
+                var timeArray = presentTime.split(/[:]+/);
+                var m = timeArray[0];
+                var s = checkSecond((timeArray[1] - 1));
+                if (s == 59) {
+                    m = m - 1
+                }
+                else if (m == 0 && s == 0) {
+                    // document.getElementById("workAlarm").play()
+
+                    // for (; ;) {
+                    //     soundWork.play()
+                    //     if (confirm('Work Time is up!!! Break Time!!!')) {
+                    //         soundWork.pause();
+                    //         break;
+                    //     }
+                    //     else {
+                    //         soundWork.play();
+                    //     }
+                    // }
+
+                    // alert("Work Time is up!!! Break Time!!!") 
+
+                    // if (confirm("Work Time is up!!! Break Time")) {
+                    // document.getElementById("workAlarm").stop();
+
+
+                    // else {
+                    //     document.getElementById("workAlarm").play();
+                    // }
+                    //set time out
+                    // while (!confirm("Work Time is up!!! Break Time")) {
+                    //     document.getElementById("workAlarm").play()
+                    //     // break;
+                    // }
+                    { document.getElementById("workAlarm").play(); };
+                    while (!confirm("Break")) { document.getElementById("workAlarm").play(); };
+                    document.getElementById('workAlarm').pause()
+
+
+
+                    // document.getElementById('workAlarm').play();
+                    // alert("foobar alert!")
+                    // document.getElementById('workAlarm').pause();
+
+                    // soundWork.play();
+                    okornot = true; //here
+                    // secondLev()
+                    return;
+                }
+
+
+                output.innerHTML =
+                    m + ":" + s;
+                setTimeout(startTimer, 1000);
+            }
+        }
+    });
+
+    function checkSecond(sec) {
+        if (sec < 10 && sec >= 0) {
+            sec = "0" + sec
+        }; // add zero in front of numbers < 10
+        if (sec < 0) {
+            sec = "59"
+        };
+        return sec;
+    }
+
+
+
+
+
+    okornot = false;
+
+    // function secondLev() {
+
+
+
+
+    var input1 = document.getElementById('break');
+    var submitBtn1 = document.getElementById('submitbtnn');
+    var output1 = document.getElementById('timer');
+    output1.innerHTML = ///hmmmm
+        00 + ":" + 00;
+
+    submitBtn1.addEventListener('click', () => {
+        var inputValue = input1.value;
+        if (!inputValue) {
+            alert('Please enter a value')
+        } else {
+            document.getElementById('timer').innerHTML =
+                inputValue + ":" + 00;
+            startTimer();
+
+            function startTimer() {
+                input1.value = '';
+                var presentTime1 = output1.innerHTML;
+                var timeArray1 = presentTime1.split(/[:]+/);
+                var m1 = timeArray1[0];
+                var s1 = checkSecond1((timeArray1[1] - 1));
+                if (s1 == 59) {
+                    m1 = m1 - 1
+                }
+                else if (m1 == 0 && s1 == 0) {
+                    alert("Break Time is up!!! Work Time!!!")
+                    return;
+                }
+
+                // s1 = parseInt(s1+2);
+                output1.innerHTML =
+                    m1 + ":" + s1;
+                setTimeout(startTimer, 1000);
+            }
+        }
+    });
+    // }
+
+    function checkSecond1(sec) {
+        if (sec < 10 && sec >= 0) {
+            sec = "0" + sec
+        }; // add zero in front of numbers < 10
+        if (sec < 0) {
+            sec = "59"
+        };
+        return sec;
+    }
+
+
+
+
+
+    // const remote = require('electron').remote
+    // const main = remote.require('./index.js')
+
+    // var startButton = document.createElement('button-center');
+    // startButton.textContent = "Start Countdown";
+    // startButton.addEventListener('click', () => {
+    //     //startCountdown()
+    //     main.openWindow('createSetWorkTimeWindow')
+    // }, false)
+
+    // document.body.appendChild(startButton)
+
+    // function startCountdown() {
+    //    if ()
+
+
+    // }
+
+    // ipcRenderer.on('item:addWork', function (e, item) {
+    //     //  const li = document.createElement('li');
+    //     //  console.log(li)
+    //     //  const itemText = document.createTextNode(item);
+    //     //  console.log(itemText)
+    //     //  li.appendChild(itemText);
+    //     //  ul.appendChild(li);
+
+    //     ul.className = 'collection';
+    //     const li = document.createElement('li');
+    //     li.className = 'collection-item';
+    //     const itemText = document.createTextNode(item);
+    //     // var a = "Work Time: ";
+
+    //     const itemLable = document.createTextNode("Work Time: ")
+    //     const minEndText = document.createTextNode(" Minutes")
+    //     li.appendChild(itemLable)
+    //     li.appendChild(itemText); //li = input text item
+    //     li.appendChild(minEndText);
+    //     ul.appendChild(li) ///ul = input text | trans up to html <ul> tag
+
+    // });
+
+
+
+
+    // // console.log(document.getElementById(item))
+    // ipcRenderer.on('item:addBreak', function (e, item1) {
+    //     //  const li = document.createElement('li');
+    //     //  console.log(li)
+    //     //  const itemText = document.createTextNode(item);
+    //     //  console.log(itemText)
+    //     //  li.appendChild(itemText);
+    //     //  ul.appendChild(li);
+    //     ul.className = 'collection';
+    //     const li = document.createElement('li');
+    //     li.className = 'collection-item';
+    //     const itemText = document.createTextNode(item1);
+    //     const itemLable = document.createTextNode("Break Time: ")
+    //     const minEndText = document.createTextNode(" Minutes")
+    //     li.appendChild(itemLable);
+    //     li.appendChild(itemText);
+    //     li.appendChild(minEndText);
+    //     ul.appendChild(li);
+
+    // });
+
+    // ipcRenderer.on('item:clear', function () {
+    //     ul.innerHTML = '';
+    //     if (ul.children.length == 0) {
+    //         ul.className = '';
+    //     }
+    // });
+
+    // ul.addEventListener('dblclick', removeSingleTime);
+
+    // function removeSingleTime(e) {
+    //     e.target.remove();
+    //     if (ul.children.length == 0) {
+    //         ul.className = '';
+    //     }
+    // }
+
+</script>
+
 </html>
